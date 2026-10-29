@@ -127,17 +127,6 @@ def show_inventory():
     p = subject_025
     print(f"Уровень {p.level}  HP {p.health}/{p.max_health}  Жизни: {meta['lives']}")
 
-
-def show_help():
-    print("\n--- ПОМОЩЬ ---")
-    print("Цифры - выбор действия в меню.")
-    print("инвентарь - показать предметы и состояние")
-    print("оружие - сменить оружие (не в бою)")
-    print("аптечка - использовать аптечку (не в бою)")
-    print("помощь - эта подсказка")
-    print("выход - выйти из игры")
-
-
 def show_stats():
     print("\n=== СТАТИСТИКА ===")
     print(f"Уровень: {subject_025.level}")
@@ -186,8 +175,6 @@ def ask(prompt="Выберите действие: ", in_battle=False):
         choice = input(prompt).strip().lower()
         if choice == "инвентарь":
             show_inventory()
-        elif choice == "помощь":
-            show_help()
         elif choice == "выход":
             quit_game()
         elif choice in ("оружие", "аптечка") and in_battle:
@@ -328,7 +315,6 @@ def fight(kind):
     result = battle(subject_025, enemy)
     if result == "won":
         stats["kills"] += 1
-        # небольшая передышка после боя, чтобы развитие было плавным
         subject_025.health = min(subject_025.max_health, subject_025.health + subject_025.max_health // 4)
         if enemy.xp_reward:
             text_animation(f"Опыт: +{enemy.xp_reward}")
